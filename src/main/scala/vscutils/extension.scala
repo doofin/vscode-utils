@@ -1,3 +1,5 @@
+package vscutils
+
 import typings.vscode.mod as vscode
 import typings.vscode.anon.Dispose
 
@@ -7,18 +9,17 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 
 object extension {
 
-  /** This method is called when your extension is actived. The extension is activated the first time one of its
-    * features is used (here we only have commands).
+  /** This method is called when your extension is actived. The extension is activated the first
+    * time one of its features is used (here we only have commands).
     */
   @JSExportTopLevel("activate") // Exports the function to javascript so that VSCode can load it
   def activate(context: vscode.ExtensionContext): Unit = {
-    println(
-      """your extension "vscode-scalajs-hello" is now active!"""
-    )
+    vscode.window.showInformationMessage("""your extension "vscode-scalajs-hello" is now active!""")
 
     // Store all the commands here
     val commands = Seq(
-      ("extension.helloWorld", showHello)
+      ("extension.helloWorld", showHello),
+      ("extension.fmt", format.doFormat)
     )
 
     // Register the commands in VSCode
@@ -30,6 +31,17 @@ object extension {
           // to make the typechecker happy (VSCode has typescript facades nowadays)
       )
     }
+    context.subscriptions.push(mCompletionItemProvider.provider1.asInstanceOf[Dispose])
+
+    vscode.commands.registerCommand(
+      "type",
+      { e => vscode.window.showInformationMessage(s"evt: $e ") }
+    )
+    checkIdle.runOnUnchanged(
+      context, {
+        // vscode.window.showInformationMessage(s"un Changed")
+      }
+    )
   }
 
   /** Example command. VSCode commands can take an argument of any type, hence the `Any` here.

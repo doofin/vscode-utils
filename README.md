@@ -2,6 +2,12 @@
 
 This is an update of [vscode-scalajs-hello](https://github.com/pme123/vscode-scalajs-hello) with Scala 3.3.3 and sbt.version=1.9.7.
 
+## reference 
+
+formatOnIdle : https://github.com/Gruntfuggly/formatOnIdle/blob/master/extension.js
+
+multi-command: https://github.com/ryuta46/vscode-multi-command
+
 
 ## Your first Extension
 A step-by-step tutorial for **Scala.js** using this example project.
