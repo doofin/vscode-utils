@@ -40,7 +40,10 @@ lazy val root = project
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "utest" % "0.8.2" % "test"
     ),
-    Compile / npmDependencies ++= Seq("@types/vscode" -> "1.84.1"),
+    Compile / npmDependencies ++= Seq(
+      "@types/vscode" -> "1.84.1",
+      "@types/node" -> "20.8.9"
+    ),
     testFrameworks += new TestFramework("utest.runner.Framework")
     // publishMarketplace := publishMarketplaceTask.dependsOn(fullOptJS in Compile).value
   )

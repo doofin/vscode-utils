@@ -6,6 +6,7 @@ import typings.vscode.anon.Dispose
 import scala.collection.immutable
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExportTopLevel
+import vscutils.checkIdle.checkKeyNodejs
 
 object extension {
 
@@ -14,14 +15,17 @@ object extension {
     */
   @JSExportTopLevel("activate") // Exports the function to javascript so that VSCode can load it
   def activate(context: vscode.ExtensionContext): Unit = {
-    vscode.window.showInformationMessage("""your extension "vscode-scalajs-hello" is now active!""")
+    vscode.window.showInformationMessage("your extension vscode -scalajs is now active!")
 
+    checkKeyNodejs()
     // Store all the commands here
     val commands = Seq(
       ("extension.helloWorld", showHello),
       ("extension.fmt", format.doFormat)
     )
 
+    val lsr = ChildProcess.execSync("ls")
+    vscode.window.showInformationMessage(s"lsr : ${lsr}")
     // Register the commands in VSCode
     commands foreach { (name, fun) =>
       context.subscriptions.push(
